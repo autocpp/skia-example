@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.28)
+project(main)
+#设置语言标准
+set(CMAKE_CXX_STANDARD 17)  # 设置 C++ 标准为 C++17
+set(CMAKE_CXX_STANDARD_REQUIRED ON)  # 确保所需的 C++ 标准
+add_definitions(-DSK_GL)
+include_directories(./)
+include_directories(third_party/Skia)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    link_directories(third_party/Skia/lib/d)
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    link_directories(third_party/Skia/lib/r)
+endif()
+file(GLOB_RECURSE cpp ./tools/*.cpp)
+add_executable(main HelloWorld.h HelloWorld.cpp ${cpp})
+if(WIN32)
+    set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
+endif()
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_link_libraries(main skia opengl32)
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_link_libraries(main skia opengl32)
+endif()
