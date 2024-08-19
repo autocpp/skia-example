@@ -217,9 +217,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     switch (message) {
         case WM_PAINT:
-            BeginPaint(hWnd, &ps);
-            window->onPaint();
-            EndPaint(hWnd, &ps);
+            if (!IsIconic(hWnd) && window) {  // IsIconic检查窗口是否最小化
+                BeginPaint(hWnd, &ps);
+                window->onPaint();
+                EndPaint(hWnd, &ps);
+            }
             eventHandled = true;
             break;
 
