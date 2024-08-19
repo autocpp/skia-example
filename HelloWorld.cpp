@@ -39,11 +39,11 @@ HelloWorld::~HelloWorld() {
 }
 
 void HelloWorld::updateTitle() {
-    if (!fWindow || fWindow->sampleCount() <= 1) {
+    if (!fWindow) {
         return;
     }
 
-    SkString title("Hello World");
+    SkString title("Hello World ");
     title.append(Window::kRaster_BackendType == fBackendType ? "Raster" : "OpenGL");
     fWindow->setTitle(title.c_str());
 }
