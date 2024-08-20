@@ -218,9 +218,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message) {
         case WM_PAINT:
             if (!IsIconic(hWnd) && window) {  // IsIconic检查窗口是否最小化
-                BeginPaint(hWnd, &ps);
-                window->onPaint();
-                EndPaint(hWnd, &ps);
+                RECT clientRect;
+                GetClientRect(hWnd, &clientRect);
+                // 确保客户区宽度和高度大于零
+                if (clientRect.right > 0 && clientRect.bottom > 0) {
+                    BeginPaint(hWnd, &ps);
+                    window->onPaint();
+                    EndPaint(hWnd, &ps);
+                }
             }
             eventHandled = true;
             break;
