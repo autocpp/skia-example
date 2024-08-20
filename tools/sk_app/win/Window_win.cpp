@@ -221,7 +221,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 RECT clientRect;
                 GetClientRect(hWnd, &clientRect);
                 // 确保客户区宽度和高度大于零
-                if (clientRect.right > 0 && clientRect.bottom > 0) {
+                if (clientRect.bottom > 0) {
                     BeginPaint(hWnd, &ps);
                     window->onPaint();
                     EndPaint(hWnd, &ps);
